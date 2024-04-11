@@ -1,0 +1,40 @@
+Documentacion de reportes:
+Lista de proveedores con sus partes suministradas (Vista: ProveedorPartes):
+
+Descripción: Este reporte muestra una lista de proveedores junto con las partes que han suministrado en el taller, incluyendo la cantidad utilizada de cada parte.
+Campos de la vista:
+Proveedor: Nombre del proveedor.
+Ciudad_Proveedor: Ciudad donde se encuentra el proveedor.
+ParteID: Número de la parte suministrada.
+CantidadUtilizada: Cantidad de la parte utilizada en el taller.
+Lista de partes con su proveedor (Vista: ParteProveedor):
+
+Descripción: Este reporte presenta una lista de partes junto con el proveedor asociado a cada parte en el taller.
+Campos de la vista:
+Parte: Nombre de la parte.
+Color: Color de la parte.
+Precio: Precio de la parte.
+Ciudad_Parte: Ciudad donde se encuentra la parte.
+ProveedorID: Identificador del proveedor asociado a la parte.
+Cantidad total de partes suministradas por cada proveedor (Vista: TotalPartesProveedor):
+
+Descripción: Este reporte muestra la cantidad total de partes suministradas por cada proveedor en el taller.
+Campos de la vista:
+ProveedorID: Identificador del proveedor.
+TotalPartesSuministradas: Cantidad total de partes suministradas por el proveedor.
+Lista de partes utilizadas en el taller (Vista: PartesUtilizadas):
+
+Descripción: Esta vista proporciona una lista de partes utilizadas en el taller junto con la cantidad utilizada de cada parte.
+Campos de la vista:
+ParteID: Número de la parte utilizada.
+CantidadUtilizada: Cantidad de la parte utilizada en el taller.
+Detalles de las partes con su proveedor y cantidad utilizada (Vista: DetallePartesProveedor):
+
+Descripción: Este reporte ofrece detalles detallados de las partes utilizadas en el taller, incluyendo el proveedor asociado y la cantidad utilizada de cada parte.
+Campos de la vista:
+Parte: Nombre de la parte.
+Color: Color de la parte.
+Precio: Precio de la parte.
+Proveedor: Nombre del proveedor asociado a la parte.
+Ciudad_Proveedor: Ciudad donde se encuentra el proveedor.
+CantidadUtilizada: Cantidad de la parte utilizada en el taller.

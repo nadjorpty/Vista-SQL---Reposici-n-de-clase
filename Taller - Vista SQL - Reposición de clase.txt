@@ -1,0 +1,96 @@
+CREATE DATABASE mi_empresa;
+
+CREATE TABLE Proveedor (
+    Id VARCHAR(50),
+    Nombre VARCHAR(100),
+    Status VARCHAR(50),
+    Ciudad VARCHAR(100)
+);
+
+CREATE TABLE Parte (
+    NumeroParte VARCHAR(50),
+    Nombre VARCHAR(100),
+    Color VARCHAR(50),
+    Peso DECIMAL(10,2),
+    Precio DECIMAL(10,2),
+    Ciudad VARCHAR(100)
+);
+
+CREATE TABLE Taller (
+    MovimientoID VARCHAR(50),
+    ProveedorID VARCHAR(50),
+    ParteID VARCHAR(50),
+    CantidadUtilizada INT
+);
+
+
+INSERT INTO Proveedor (Id, Nombre, Status, Ciudad)
+VALUES ('V1', 'SMITH', '20', 'LONDRES'),
+		 ('V2', 'JONES', '10', 'PARIS'),
+       ('V3', 'BLAKE', '30', 'PARIS'),
+       ('V4', 'CLARK', '20', 'LONDRES'),
+       ('V5', 'ADAMS', '30', 'ATENAS');
+       
+INSERT INTO Parte (NumeroParte, Nombre, Color, Peso, Precio, Ciudad)
+VALUES ('P1', 'TUERCA', 'ROJO', 5.5, 12.00, 'LONDRES'),
+       ('P2', 'PERNO', 'VERDE', 7.5, 17.00, 'LONDRES'),
+       ('P3', 'TORNILLO', 'AZUL', 8.5, 17.00, 'LONDRES'),
+       ('P4', 'TORNILLO', 'ROJO', 8.5, 14.00, 'LONDRES'),
+       ('P5', 'LEVA', 'AZUL', 10.5, 12.00, 'LONDRES'),
+       ('P6', 'ENGRANE', 'ROJO', 11.5, 19.00, 'LONDRES');
+       
+       
+INSERT INTO Taller (MovimientoID, ProveedorID, ParteID, CantidadUtilizada)
+VALUES ('V1', 'P1', 'Y1', 200),
+       ('V1', 'P1', 'Y4', 700),
+		 ('V2', 'P3', 'Y1', 400),
+		 ('V2', 'P3', 'Y2', 200),
+		 ('V2', 'P3', 'Y3', 200),
+		 ('V2', 'P3', 'Y5', 400),
+		 ('V2', 'P3', 'Y7', 800),
+		 ('V2', 'P5', 'Y2', 100),
+		 ('V3', 'P3', 'Y1', 200),
+		 ('V3', 'P4', 'Y2', 500),
+		 ('V4', 'P6', 'Y3', 300),
+		 ('V4', 'P6', 'Y7', 300),
+		 ('V5', 'P2', 'Y2', 200),
+		 ('V5', 'P2', 'Y4', 100),
+		 ('V5', 'P5', 'Y5', 500),
+		 ('V5', 'P5', 'Y7', 100),
+		 ('V5', 'P6', 'Y2', 200),
+		 ('V5', 'P1', 'Y4', 100),
+		 ('V5', 'P3', 'Y4', 200),
+		 ('V5', 'P4', 'Y4', 800),
+		 ('V5', 'P5', 'Y4', 400),
+		 ('V5', 'P6', 'Y4', 500);
+		 
+		 
+-- Reporte 1: Lista de proveedores con sus partes suministradas
+CREATE VIEW ProveedorPartes AS
+SELECT p.Nombre AS Proveedor, p.Ciudad AS Ciudad_Proveedor, t.ParteID, t.CantidadUtilizada
+FROM Proveedor p
+JOIN Taller t ON p.Id = t.ProveedorID;
+
+-- Reporte 2: Lista de partes con su proveedor
+CREATE VIEW ParteProveedor AS
+SELECT pr.Nombre AS Parte, pr.Color, pr.Precio, pr.Ciudad AS Ciudad_Parte, t.ProveedorID
+FROM Parte pr
+JOIN Taller t ON pr.NumeroParte = t.ParteID;
+
+-- Reporte 3: Cantidad total de partes suministradas por cada proveedor
+CREATE VIEW TotalPartesProveedor AS
+SELECT ProveedorID, COUNT(ParteID) AS TotalPartesSuministradas
+FROM Taller
+GROUP BY ProveedorID;
+
+-- Reporte 4: Lista de partes utilizadas en el taller
+CREATE VIEW PartesUtilizadas AS
+SELECT ParteID, CantidadUtilizada
+FROM Taller;
+
+-- Reporte 5: Detalles de las partes con su proveedor y cantidad utilizada
+CREATE VIEW DetallePartesProveedor AS
+SELECT pr.Nombre AS Parte, pr.Color, pr.Precio, p.Nombre AS Proveedor, p.Ciudad AS Ciudad_Proveedor, t.CantidadUtilizada
+FROM Parte pr
+JOIN Taller t ON pr.NumeroParte = t.ParteID
+JOIN Proveedor p ON t.ProveedorID = p.Id;
